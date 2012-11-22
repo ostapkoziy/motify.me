@@ -21,7 +21,7 @@
 
 @implementation HomeViewController
 
-@synthesize arrowLeft, arrowRight, slideImage, slideText, slideTitle;
+@synthesize arrowLeft, arrowRight, slideImage, slideText, slideTitle, roundRectButtonPopTipView, shareView;
 
 -(IBAction)rotateCarouselLeft:(id)sender{
     if(carouselIndex > 1){
@@ -67,6 +67,31 @@
     carouselIndex = 1;
 }
 
+-(IBAction)shareButtonPressed:(id)sender{
+    // Toggle popTipView when a standard UIButton is pressed
+    if (self.roundRectButtonPopTipView == nil) {
+        self.roundRectButtonPopTipView = [[CMPopTipView alloc] initWithCustomView: shareView];
+        self.roundRectButtonPopTipView.delegate = self;
+        self.roundRectButtonPopTipView.backgroundColor = [UIColor clearColor];
+        self.roundRectButtonPopTipView.textColor = [UIColor clearColor];
+        
+        UIButton *button = (UIButton *)sender;
+        [self.roundRectButtonPopTipView presentPointingAtView:button inView:self.view animated:YES];
+    }
+    else {
+        // Dismiss
+        [self.roundRectButtonPopTipView dismissAnimated:YES];
+        self.roundRectButtonPopTipView = nil;
+    }
+}
+
+#pragma mark CMPopTipViewDelegate methods
+- (void)popTipViewWasDismissedByUser:(CMPopTipView *)popTipView {
+    // User can tap CMPopTipView to dismiss it
+    self.roundRectButtonPopTipView = nil;
+}
+
+
 -(IBAction)twiShare:(id)sender{
     SLComposeViewController *composeController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
     [composeController setInitialText:@"Test tweet from Motify.me iOS app"];
@@ -111,6 +136,7 @@
     [self setSlideImage:nil];
     [self setSlideTitle:nil];
     [self setSlideText:nil];
+    [self setShareView:nil];
     [super viewDidUnload];
 }
 @end
