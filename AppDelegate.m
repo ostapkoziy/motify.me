@@ -14,6 +14,7 @@
 {
     // Override point for customization after application launch.
     return YES;
+    //categoryViewController.collectionView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"coolrobot.png"]];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

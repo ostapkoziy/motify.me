@@ -14,6 +14,7 @@
     NSMutableArray *slideArray;
     SlideModel *slideModel1, *slideModel2, *slideModel3;
     int carouselIndex;
+    NSArray *categoryArray;
 }
     
 @end
@@ -116,6 +117,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     return self;
 }
+
 
 
 - (void)viewDidLoad
